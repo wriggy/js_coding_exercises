@@ -75,7 +75,7 @@ function simpleFizzBuzz(n) {
       return "fizzbuzz"
     } else {
       return "fizz"
-    };
+    }
   } else if (n%5 === 0) {
     return "buzz"
   } else { 

@@ -6,6 +6,13 @@
  */
 const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
+  let total = 0;
+  arr.forEach(num => {
+    if ((num % 3 === 0) || (num % 5 === 0)) {
+      total += num
+    }
+  })
+  return total
 };
 
 /**
@@ -15,6 +22,10 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  if (str.match(/[^ACGT]/g)) {
+    return false
+  }
+  return true
 };
 
 /**
@@ -24,6 +35,24 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  let complement = ''
+  for (let i = 0; i < str.length; i++) {
+    switch (str[i]) {
+      case 'A':
+        complement += 'T';
+        break;
+      case 'T':
+        complement += 'A';
+        break;
+      case 'C':
+        complement += 'G';
+        break;
+      case 'G':
+        complement += 'C';
+        break;
+    }
+  }
+  return complement
 };
 
 /**
@@ -33,6 +62,15 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
+  if ((!Number.isInteger(n)) || (n <= 1)) {
+    return false
+  }
+  for (let i = 2; i < Math.pow(n, 0.5); i++) {
+    if (n % i === 0) {
+      return false
+    }
+  }
+  return true
 };
 
 /**
@@ -49,6 +87,10 @@ const isItPrime = n => {
 const createMatrix = (n, fill) => {
   if (n === undefined) throw new Error("n is required");
   if (fill === undefined) throw new Error("fill is required");
+  if (!Number.isInteger(n)) throw new Error("n must be an integer");
+
+  let subarr = new Array(n).fill(fill);
+  return Array(n).fill(subarr)
 };
 
 /**
@@ -66,6 +108,17 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
   if (day === undefined) throw new Error("day is required");
+  
+  let frequency = 0;
+  staff.forEach(person => {
+    if (person.rota.some(rotaDay => rotaDay === day)) {
+      frequency += 1
+    }
+  })
+  if (frequency >= 3) {
+    return true
+  }
+  return false
 };
 
 module.exports = {

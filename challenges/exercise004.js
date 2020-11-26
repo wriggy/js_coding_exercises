@@ -1,93 +1,52 @@
 function findSmallNums(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
-  let smallNums = [];
-  nums.forEach(num => {
-    if (num < 1) {
-      smallNums.push(num);
-    }
-  })
-  return smallNums
+  return nums.filter(num => num < 1)
 }
 
 function findNamesBeginningWith(names, char) {
   if (!names) throw new Error("names is required");
   if (!char) throw new Error("char is required");
   // Your code here
-  let namesBegWith = [];
-  names.forEach(name => {
-    if (name.startsWith(char)) {
-      namesBegWith.push(name)
-    }
-  })
-  return namesBegWith
+  return names.filter(name => name.startsWith(char))
 }
 
 function findVerbs(words) {
   if (!words) throw new Error("words is required");
   // Your code here
-  let verbs = [];
-  words.forEach(word => {
-    if (word.startsWith('to ')) {
-      verbs.push(word)
-    }
-  })
-  return verbs
+  return words.filter(word => word.startsWith('to '))
 }
 
 function getIntegers(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
-  let ints = [];
-  nums.forEach(num => {
-    if (Number.isInteger(num)) {
-      ints.push(num)
-    }
-  })
-  return ints
+  return nums.filter(num => Number.isInteger(num))
 }
 
 function getCities(users) {
   if (!users) throw new Error("users is required");
   // Your code here
-  let cities = [];
-  users.forEach(user => {
-    cities.push(user.data.city.displayName)
-  })
-  return cities
+  return users.map(user => user.data.city.displayName)
 }
 
 function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
   // Your code here
-  let roots = [];
-  nums.forEach(num => {
-    roots.push(Math.round(Math.pow(num, 0.5) * 100) / 100)
-  })
-  return roots
+  return nums.map(num => Math.round(Math.pow(num, 0.5) * 100) / 100)
 }
 
 function findSentencesContaining(sentences, str) {
   if (!sentences) throw new Error("sentences is required");
   if (!str) throw new Error("str is required");
   // Your code here
-  let retArray = [];
   let re = new RegExp(str, 'i');
-  sentences.forEach(sentence => {
-    if (sentence.match(re)) {
-      retArray.push(sentence)
-    }
-  })
-  return retArray
+  return sentences.filter(sentence => sentence.match(re))
 }
 
 function getLongestSides(triangles) {
   if (!triangles) throw new Error("triangles is required");
   // Your code here
-  let retArray = [];
-  triangles.forEach(triangle =>
-    retArray.push(Math.max(...triangle)))
-  return retArray
+  return triangles.map(triangle => Math.max(...triangle))
 }
 
 module.exports = {

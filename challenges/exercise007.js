@@ -4,6 +4,12 @@
  */
 const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
+  let digits = '' + n;
+  let sum = 0;
+  for (let i = 0; i < digits.length; i++) {
+    sum += +digits[i]
+  }
+  return sum
 };
 
 /**
@@ -17,6 +23,27 @@ const sumDigits = n => {
 const createRange = (start, end, step) => {
   if (start === undefined) throw new Error("start is required");
   if (end === undefined) throw new Error("end is required");
+  if (step === undefined) {
+    step = 1;
+  }
+  let retArr = [start];
+  if (start > end) {  // counting down
+    if (step >= 0) {
+      throw new Error("invalid range")
+    }
+    for (let val = start + step; val >= end; val += step) {
+      retArr.push(val);
+    }
+  }
+  if (start < end) {  // counting up
+    if (step <= 0) {
+      throw new Error("invalid range")
+    }
+    for (let val = start + step; val <= end; val += step) {
+      retArr.push(val);
+    }
+  }
+  return retArr
 };
 
 /**
@@ -51,6 +78,21 @@ const createRange = (start, end, step) => {
 const getScreentimeAlertList = (users, date) => {
   if (users === undefined) throw new Error("users is required");
   if (date === undefined) throw new Error("date is required");
+  let alertList = [];
+  users.forEach(user => {
+    let usage = 0;
+    // find data for the date provided
+    let daysData = user.screenTime.find(daysData => daysData.date === date)
+    if (daysData) {
+      for (let app in daysData.usage) {
+        usage += daysData.usage[app]
+      }
+    }
+    if (usage > 100) {
+      alertList.push(user.username)
+    }
+  })
+  return alertList
 };
 
 /**
@@ -65,6 +107,10 @@ const getScreentimeAlertList = (users, date) => {
  */
 const hexToRGB = hexStr => {
   if (hexStr === undefined) throw new Error("hexStr is required");
+  // no checking of input format
+  let retVal = "rgb(" + parseInt('0x' + hexStr.slice(1, 3)) + ',' +
+    parseInt('0x' + hexStr.slice(3, 5)) + ',' + parseInt('0x' + hexStr.slice(5)) + ')';
+  return retVal
 };
 
 /**
@@ -79,6 +125,29 @@ const hexToRGB = hexStr => {
  */
 const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
+  // create list of indexes for lines
+  let lineIndexes = [];
+  for (let i = 0; i < 3; i++) {
+    //rows
+    lineIndexes.push([[i, 0], [i, 1], [i, 2]]);
+    //cols
+    lineIndexes.push([[0, i], [1, i], [2, i]]);
+  }
+  // diagonals
+  lineIndexes.push([[0, 0], [1, 1], [2, 2]]);
+  lineIndexes.push([[0, 2], [1, 1], [2, 0]]);
+
+  // check for a win
+  // TODO refactor to avoid checking all lines everytime
+  let retval = null;
+  lineIndexes.forEach(line => {
+    if (line.every(ix => board[ix[0]][ix[1]] === 'X')) {
+      retval = "X";
+    } else if (line.every(ix => board[ix[0]][ix[1]] === '0')) {
+      retval = "0";
+    }
+  })
+  return retval
 };
 
 module.exports = {

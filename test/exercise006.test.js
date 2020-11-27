@@ -1,4 +1,3 @@
-//const { TestScheduler } = require("jest");
 const {
     sumMultiples,
     isValidDNA,
